@@ -5,11 +5,6 @@ var GAP_HEIGHT = 2;
 var start = new Date('1991', '11', '22');
 var end = new Date('2077', '7', '14');
 
-function timeGapOnClick()
-{
-
-
-}
 
 function fillImgOnClick()
 {
@@ -33,7 +28,7 @@ function fillImgOnClick()
 
     var drawDay = new Utilities.DrawDay(calculator, width, height, 
         BLOCK_WIDTH, BLOCK_HEIGHT, GAP_WIDTH, GAP_HEIGHT);
-    var array = drawDay.getByteArray();
+    var array = drawDay.getRGBAArray();
 
 
     imgHolder.width = width;

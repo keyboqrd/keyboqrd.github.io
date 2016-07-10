@@ -169,7 +169,7 @@
             this.gapHeight = gapHeight;
             this.dateCalculator = dateCalculator;
         },
-        getByteArray: function () {
+        getRGBAArray: function () {
             var result = System.Array.init(((((this.width * this.height) | 0) * 4) | 0), 0);
             var resultIndex = 0;
             var totalWidth = (this.blockWidth + this.gapWidth) | 0;
@@ -181,24 +181,24 @@
                         var b = (Bridge.Int.div(y, (((this.blockHeight + this.gapHeight) | 0)))) | 0;
                         if (a < this.dateCalculator.dayList[b].length) {
                             if (this.dateCalculator.dayList[b][a] === Utilities.DayType.Na) {
-                                result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 70; // Green value of pixel
-                                result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 70; // Blue value of pixel
-                                result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 70; // Red value of pixel
-                                result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255; // Alpha value of pixel
+                                result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 70;
+                                result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 70;
+                                result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 70;
+                                result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255;
                             }
                             else  {
                                 if (this.dateCalculator.dayList[b][a] === Utilities.DayType.Passe) {
-                                    result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 0; // Green value of pixel
-                                    result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 0; // Blue value of pixel
-                                    result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255; // Red value of pixel
-                                    result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255; // Alpha value of pixel
+                                    result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255;
+                                    result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 0;
+                                    result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 0;
+                                    result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255;
                                 }
                                 else  {
                                     if (this.dateCalculator.dayList[b][a] === Utilities.DayType.Demain) {
-                                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255; // Green value of pixel
-                                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 0; // Blue value of pixel
-                                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 0; // Red value of pixel
-                                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255; // Alpha value of pixel
+                                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 0;
+                                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 0;
+                                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255;
+                                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255;
                                     }
                                 }
                             }
@@ -206,18 +206,18 @@
     
                         }
                         else  {
-                            result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200; // Green value of pixel
-                            result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200; // Blue value of pixel
-                            result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200; // Red value of pixel
-                            result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255; // Alpha value of pixel
+                            result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200;
+                            result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200;
+                            result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200;
+                            result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255;
                         }
     
                     }
                     else  {
-                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200; // Green value of pixel
-                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200; // Blue value of pixel
-                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200; // Red value of pixel
-                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255; // Alpha value of pixel
+                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200;
+                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200;
+                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 200;
+                        result[Bridge.identity(resultIndex, (resultIndex = (resultIndex + 1) | 0))] = 255;
                     }
                 }
             }
