@@ -21,20 +21,21 @@
                         }
                     },
                     main: function () {
-                        timeGap.onclick = timeGapOnClick;
-                        fillImg.onclick = fillImgOnClick;
+                        doStuff.onclick = fillImgOnClick;
                     }
                 },
                 $entryPoint: true
             });
             Bridge.init();
+
         })(this);
     </script>
-    <button id="timeGap">Calculate gap</button>
-    <div id="y">ddd</div>
+    <button id="doStuff">Calculate</button>
+    <div id="y"></div>
     <div id="m"></div>
     <div id="d"></div>
-    <button id="fillImg">fillImg</button>
+    <input type="date" id="startPicker" value="1992-08-04"/>
+    <input type="date" id="endPicker" value="2092-01-01"/>
     <canvas id="imgHolder"></canvas>
 </body>
 </html>

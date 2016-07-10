@@ -8,19 +8,25 @@ var end = new Date('2077', '7', '14');
 function timeGapOnClick()
 {
 
+
+}
+
+function fillImgOnClick()
+{
+    start = Bridge.Date.parse(startPicker.value);
+    end = Bridge.Date.parse(endPicker.value);
+
     var yearCount = new System.Int32;
     var monthCount = new System.Int32;
     var dayCount = new System.Int32;
     Utilities.DateCalculator.getDurationInYMD(start, end,
         yearCount, monthCount, dayCount);
 
-    y.textContent = yearCount.v;
-    m.textContent = monthCount.v;
-    d.textContent = dayCount.v;
-}
+    y.textContent = yearCount.v + 'years';
+    m.textContent = monthCount.v + 'months';
+    d.textContent = dayCount.v + 'days';
 
-function fillImgOnClick()
-{
+
     var calculator = new Utilities.DateCalculator(start, end);
     var width = 366 * (BLOCK_WIDTH + GAP_WIDTH) + GAP_WIDTH;
     var height = calculator.dayList.length * (BLOCK_HEIGHT + GAP_HEIGHT) + GAP_HEIGHT;
