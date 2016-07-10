@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Theaga Utilities</title>
+    <script src="../output/bridge.min.js"></script>
+    <script src="../output/utilities.js"></script>
+    <script src="controls.js"></script>
+</head>
+<body>
+    <script>
+        (function (globals) {
+            "use strict";
+
+            Bridge.define('TheagaCalendar.App', {
+                statics: {
+                    config: {
+                        init: function () {
+                            Bridge.ready(this.main);
+                        }
+                    },
+                    main: function () {
+                        timeGap.onclick = timeGapOnClick;
+                        fillImg.onclick = fillImgOnClick;
+                    }
+                },
+                $entryPoint: true
+            });
+            Bridge.init();
+        })(this);
+    </script>
+    <button id="timeGap">Calculate gap</button>
+    <div id="y">ddd</div>
+    <div id="m"></div>
+    <div id="d"></div>
+    <button id="fillImg">fillImg</button>
+    <canvas id="imgHolder"></canvas>
+</body>
+</html>
