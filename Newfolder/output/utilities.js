@@ -100,10 +100,10 @@
                 for (var d = new Date(startYear, 1 - 1, 1); Bridge.Date.lt(d, this.startDate); d = new Date(d.valueOf() + Math.round((1) * 864e5))) {
                     this.dayList[((d.getFullYear() - startYear) | 0)][((Math.ceil((d - new Date(d.getFullYear(), 0, 1)) / 864e5) - 1) | 0)] = Utilities.DayType.Na;
                 }
-                for (var d1 = this.startDate; Bridge.Date.lt(d1, this.endDate); d1 = new Date(d1.valueOf() + Math.round((1) * 864e5))) {
+                for (var d1 = this.startDate; Bridge.Date.lte(d1, this.endDate); d1 = new Date(d1.valueOf() + Math.round((1) * 864e5))) {
                     this.dayList[((d1.getFullYear() - startYear) | 0)][((Math.ceil((d1 - new Date(d1.getFullYear(), 0, 1)) / 864e5) - 1) | 0)] = Utilities.DayType.Demain;
                 }
-                for (var d2 = this.endDate; Bridge.Date.lt(d2, new Date(endYear, 12 - 1, 31)); d2 = new Date(d2.valueOf() + Math.round((1) * 864e5))) {
+                for (var d2 = new Date(this.endDate.valueOf() + Math.round((1) * 864e5)); Bridge.Date.lt(d2, new Date(endYear, 12 - 1, 31)); d2 = new Date(d2.valueOf() + Math.round((1) * 864e5))) {
                     this.dayList[((d2.getFullYear() - startYear) | 0)][((Math.ceil((d2 - new Date(d2.getFullYear(), 0, 1)) / 864e5) - 1) | 0)] = Utilities.DayType.Na;
                 }
             }
@@ -114,10 +114,10 @@
                 for (var d4 = this.startDate; Bridge.Date.lt(d4, Bridge.Date.today()); d4 = new Date(d4.valueOf() + Math.round((1) * 864e5))) {
                     this.dayList[((d4.getFullYear() - startYear) | 0)][((Math.ceil((d4 - new Date(d4.getFullYear(), 0, 1)) / 864e5) - 1) | 0)] = Utilities.DayType.Passe;
                 }
-                for (var d5 = Bridge.Date.today(); Bridge.Date.lt(d5, this.endDate); d5 = new Date(d5.valueOf() + Math.round((1) * 864e5))) {
+                for (var d5 = Bridge.Date.today(); Bridge.Date.lte(d5, this.endDate); d5 = new Date(d5.valueOf() + Math.round((1) * 864e5))) {
                     this.dayList[((d5.getFullYear() - startYear) | 0)][((Math.ceil((d5 - new Date(d5.getFullYear(), 0, 1)) / 864e5) - 1) | 0)] = Utilities.DayType.Demain;
                 }
-                for (var d6 = this.endDate; Bridge.Date.lt(d6, new Date(endYear, 12 - 1, 31)); d6 = new Date(d6.valueOf() + Math.round((1) * 864e5))) {
+                for (var d6 = new Date(this.endDate.valueOf() + Math.round((1) * 864e5)); Bridge.Date.lt(d6, new Date(endYear, 12 - 1, 31)); d6 = new Date(d6.valueOf() + Math.round((1) * 864e5))) {
                     this.dayList[((d6.getFullYear() - startYear) | 0)][((Math.ceil((d6 - new Date(d6.getFullYear(), 0, 1)) / 864e5) - 1) | 0)] = Utilities.DayType.Na;
                 }
             }
@@ -125,10 +125,10 @@
                 for (var d7 = new Date(startYear, 1 - 1, 1); Bridge.Date.lt(d7, this.startDate); d7 = new Date(d7.valueOf() + Math.round((1) * 864e5))) {
                     this.dayList[((d7.getFullYear() - startYear) | 0)][((Math.ceil((d7 - new Date(d7.getFullYear(), 0, 1)) / 864e5) - 1) | 0)] = Utilities.DayType.Na;
                 }
-                for (var d8 = this.startDate; Bridge.Date.lt(d8, this.endDate); d8 = new Date(d8.valueOf() + Math.round((1) * 864e5))) {
+                for (var d8 = this.startDate; Bridge.Date.lte(d8, this.endDate); d8 = new Date(d8.valueOf() + Math.round((1) * 864e5))) {
                     this.dayList[((d8.getFullYear() - startYear) | 0)][((Math.ceil((d8 - new Date(d8.getFullYear(), 0, 1)) / 864e5) - 1) | 0)] = Utilities.DayType.Passe;
                 }
-                for (var d9 = this.endDate; Bridge.Date.lt(d9, new Date(endYear, 12 - 1, 31)); d9 = new Date(d9.valueOf() + Math.round((1) * 864e5))) {
+                for (var d9 = new Date(this.endDate.valueOf() + Math.round((1) * 864e5)); Bridge.Date.lt(d9, new Date(endYear, 12 - 1, 31)); d9 = new Date(d9.valueOf() + Math.round((1) * 864e5))) {
                     this.dayList[((d9.getFullYear() - startYear) | 0)][((Math.ceil((d9 - new Date(d9.getFullYear(), 0, 1)) / 864e5) - 1) | 0)] = Utilities.DayType.Na;
                 }
             }
