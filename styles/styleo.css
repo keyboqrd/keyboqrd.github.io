@@ -1,0 +1,214 @@
+body {
+	font-size: 14px;
+	font-family: Arial, 'Microsoft YaHei', Î¢ÈíÑÅºÚ, SimSun, ËÎÌå;
+	margin: 0px;
+	padding: 0px;
+}
+
+a {
+    text-decoration: none;
+	padding: 0;
+	margin: 0;
+    color: gray;
+}
+a:hover {
+	text-decoration: none;
+	color: gray;
+}
+
+
+.clear {
+	width: 0px;
+	height: 0px;
+	padding: 0px;
+	margin: 0px;
+	clear: both;
+}
+
+.content-img {
+    width: 500px;
+}
+
+
+
+.wrap {
+	width: 1000px;
+	margin: 0px auto;
+}
+
+.top {
+	position: fixed;
+	color: black;
+	z-index: 1000;
+	width: 1000px;
+	height: 140px;
+	background-image: url(../images/bg1.png);
+	background-repeat: repeat;
+}
+
+.top h {
+	font-weight:bold;
+}
+
+.top span {
+	font-weight:bold;
+}
+
+.top p{
+	color: gray;
+}
+
+.hhhh {
+    font-size: 90px;
+    line-height: 90px;
+    color: lightgray;
+}
+
+.mw {
+    color: black;
+    margin-left: 40px;
+}
+
+.turn {
+    
+    display: inline-block;
+    -webkit-transform: rotate(90deg); 
+    -moz-transform: rotate(90deg);	
+
+    -ms-transform: rotate(90deg);
+
+
+    -o-transform: rotate(90deg);
+
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+
+
+}
+
+textarea
+{
+	width: 500px;
+}
+
+.content {
+	padding-top: 150px;
+}
+
+.left {
+	position: fixed;
+	width: 300px;
+	top: 150px;
+	overflow: hidden;
+	text-align: right;
+	color: gray;
+}
+
+.left-title {
+
+	font-size: 18px;
+	font-weight: bold;
+	padding-right: 10px;
+	margin-bottom: 10px;
+	text-decoration: underline;
+	color: black;
+	letter-spacing: 2px;
+}
+
+
+.left-items {
+	float: right;
+	padding: 10px;
+	border-right: 1px solid lightgray;
+
+}
+
+.left-item {
+	margin-bottom: 10px;
+	padding: 5px;
+}
+
+.left-item:hover {
+	background-color: lightblue;
+}
+
+.left-a {
+	color: gray;
+	letter-spacing: 1px;
+}
+.left-a:hover {
+	font-weight: bold;
+	cursor: pointer;
+	letter-spacing: 0;
+}
+
+.right {
+	margin-left: 310px;
+
+	width: 690px;
+
+}
+
+.right-item {
+	width: 688px;
+
+	border-radius: 5px;
+	padding: 0px;
+	margin-bottom: 5px;
+	
+	background-color: #eee;
+	overflow: hidden;
+}
+
+.right-item-title {
+	color: white;
+	background-color: gray;
+	padding: 10px;
+	margin: 0px;
+
+	width: 668px;
+	border-radius: 4px 4px 0 0;
+	font-weight: bold;
+	font-size: 16px;
+
+}
+.right-item-title:hover {
+	cursor:pointer;
+	background-color: #444444;
+}
+
+.code {
+	font-size: 12px;
+	color: lightblue;
+}
+
+.code a {
+	color: lightblue;
+}
+.code a:hover {
+	color: white;
+
+}
+
+
+
+.right-item-content {
+	margin: 10px;
+}
+
+.meuh {
+	position: fixed;
+	right: 30px;
+	top: 30px;
+}
+.meuh:hover {
+	cursor: pointer;
+}
+.bg-meuh {
+	display: none;
+	width: 100%;
+	z-index: -1000;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+
+}
