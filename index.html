@@ -1,208 +1,587 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html>
-	<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utp-8" />
-        <title>Keyboqrd</title>
-		<link rel="stylesheet" type="text/css" href="styles/styleo.css">
-		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.min.js"></script>
-		<script>if (!window.jQuery) { document.write('<script src="scripts/jquery-3.0.0.min.js"><\/script>'); }</script>
-	</head>
+﻿<!DOCTYPE html>
 
-	<body>
-		<script type="text/javascript" src="scripts/scripto.js"></script>
-	
-		<img src="images/b.gif" class="bg-meuh"/>
-		
-		<div class="wrap">
-			<div class="top">
-                <h class="hhhh">Keyboqrd</h>
-                <span>Version française: » <a href="http://www.clqvier.fr"><i>www.clqvier.fr</i></a></span>
-				<p>Keyboqrd is typing q insteqd of a, w insteqd of z, and a zhole lot of other odd characters</p>
-			</div>
-			
-			<div class="content">
-				<div class="left">
-					<div class="left-title">
-						Contents
-					</div>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Doodling</title>
 
-					<div class="left-items text-right">
-					<div class="left-item">
-						<a href="#1-1-i" class="left-a" id="1-1">
-							<div>AZERTY</div>
-						</a>
-					</div>
-					<div class="left-item">	
-						<a href="#2-1-i" class="left-a" id="2-1">
-							<div>Windows 7 or Windows Vista</div>
-						</a>
-					</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.0.0.min.js"></script>
+    <script>if (!window.jQuery) { document.write('<script src="scripts/jquery-3.0.0.min.js"><\/script>'); }</script>
+</head>
+<body>
+    <script type="text/javascript" src="scripts/jscolor.js"></script>
+    <script>
+        var clicked = false;
+        var eachClicked = false;
+        var bgaContext; //background animation
+        var bgrContext; //background scene
+        var imgContext; 
+        var triContext; //current polygon points
+        var curContext; //cursor scene
+        var eacContext; //current polygon lines
+        var MAR_ = 20; //margin in canvas
+        var STR_ = 20; //mouse pointer size
+        var WI_;
+        var HI_;
+        var STEP_WH = 6;
+        var tri = [];
+        var triCopy;
+        var poi = [];
+        var waypoi = [];
+        var allTri = [];
+        var currPoi = [];
+        var MIN_DIS_ = 2.5;
+        var RATE_ = 0.12; //med rate
+        var GAP_ = 25;
+        var t;
+        var rgb1 = [178, 255, 0];
+        var rgb2 = [255, 0, 255];
+        var fillCount;
+        var startFill;
+        $(document).ready(function () {
+            setit();
+       //     $(window).resize(function (event) {
+       //         if (!clicked)
+       //             setit();
+       //     });
+            window.addEventListener("resize",
+                function () {
+                    if (!clicked)
+                        setit();
+                });
+            imgHolder.addEventListener("mousemove", mousemove);
+            imgHolder.addEventListener("click", click);
+            btnClear.addEventListener("click", setit);
 
+        });
 
+        function mousemove(e) {
+            curContext.clearRect(currPoi[0], currPoi[1], STR_, STR_);
+            currPoi = getCoor(e);
+            curContext.fillRect(currPoi[0], currPoi[1], STR_, STR_);
 
-					<div class="left-item">	
-						<a href="#3-1-i" class="left-a" id="3-1">
-							<div>Windows 10</div>
-						</a>
-					</div>
-					
-										<div class="left-item">
-						<a href="#4-1-i" class="left-a" id="4-1">
-							<div>Windows XP</div>
-						</a>
-					</div>
-					
-										<div class="left-item">	
-						<a href="#5-1-i" class="left-a" id="5-1">
-							<div>For Apple users</div>
-						</a>
-					</div>
-					
-										<div class="left-item">	
-						<a href="#6-1-i" class="left-a" id="6-1">
-							<div>Verify the problem is solved</div>
-						</a>
-					</div>
+            if (eachClicked) {
+                eacContext.clearRect(0, 0, WI_, HI_);
+                eacContext.beginPath();
+                eacContext.moveTo(tri[0][0], tri[0][1]);
+                for (var i = 1; i < tri.length; i++) {
+                    eacContext.lineTo(tri[i][0], tri[i][1]);
+                }
+                eacContext.lineTo(currPoi[0], currPoi[1]);
+                eacContext.stroke();
+            }
+        }
 
-					</div>
-
-				</div>
-							
-				<div class="right">
-				
-					<div class="right-item">
-						<div class="right-item-title" id="1-1-i">
-							<span>AZERTY</span>
-							<span class="code">
-								[<a href="https://en.wikipedia.org/wiki/AZERTY">Wikipedia</a>]
-							</span>
-						</div>
-						<div class="right-item-content" id="1-1-ic">
-							<p><b>AZERTY</b> is a specific layout for the characters of the Latin alphabet on typewriter keys and computer keyboards.</p>
-							<p>The layout takes its name from the first six letters to appear on the first row of alphabetical keys. It is used by most French speakers based in Europe.</p>
-							<p><img class="content-img" alt="the AZERTY layout used in France" src="images/azerty.png" /></p>
-						</div>
-					</div>
-					
-					<div class="right-item">
-						<div class="right-item-title" id="2-1-i">
-							Windows 7 or Windows Vista
-							<span class="code">
-								[<a href="https://support.microsoft.com/en-gb/kb/306560">Microsoft</a>]
-							</span>
-						</div>
-						<div class="right-item-content" id="2-1-ic">
-							<p><i>To configure your keyboard to use a different language or keyboard layout, use the appropriate method for your version of Windows.</i></p>
-							<p><b>Click</b> Start button, type intl.cpl in the Start Search box, and then press ENTER.</p>
-							<p><b>On</b> the Keyboards and Language tab, click Change keyboards.</p>
-							<p><b>Click</b> Add.</p>
-							<p><b>Expand</b> the language that you want. For example, expand English (United States).</p>
-							<p><b>Expand</b> Keyboard list, select the United States-International check box, and then click OK.</p>
-							<p><b>In</b> the Default input language list, click English (United States) - United States-International.</p>
-<p><b>In</b> the Regional and Language Options dialog box, click OK. 
-<br />
-<i>Notice that the Language bar appears on the taskbar. When you position the mouse pointer over it, a ToolTip appears that describes the active keyboard layout.</i></p>
-<p><b>Click</b> the Language bar, and then click United States-International on the shortcut menu that appears.</p>
-<p>The United States-International keyboard layout is selected.</p>
-
-						</div>					
-					</div>
-					
-					
-					<div class="right-item">
-						<div class="right-item-title" id="3-1-i">
-							Windows 10
-						</div>
-						<div class="right-item-content" id="3-1-ic">
-							<p><i>You can configure your keyboard to use different language and keyboard formats. You can add multiple keyboard layouts and switch between them when needed. Use the following steps to add a language, set a default language, and switch between keyboard layouts:</i></p>
-<p><u><b>Add a keyboard language:</b></u></p>
-<p><b>Click</b> the Start menu and select Settings.</p>
-<p><b>Select</b> Time & language.</p>
-<p><b>Click</b> Region & language in the left column.</p>
-<p><b>Select</b> Add a language.</p>
-<p><b>Choose</b> the language you want to add and select a country for the language.</p>
-
-<p><u><b>Set a default keyboard layout:</b></u></p>
-<p><b>Click</b> the Start menu and select Settings.</p>
-<p><b>Select</b> Time & language.</p>
-<p><b>Click</b> Region & language in the left column.</p>
-<p><b>Under</b> Languages click the language you want as default and click Set as default.</p>
-
-<p><u><b>Switch keyboard layouts:</b></u></p>
-<p><b>Method 1:</b></p>
-<p>Click the language name in the lower right.</p>
-<p>Select the keyboard layout you want to use.</p>
-<p><b>Method 2:</b></p>
-<p>Press and hold the Windows key  while you press the Space bar to change the language.</p>
-
-                        </div>
-					</div>
-					<div class="right-item">
-						<div class="right-item-title" id="4-1-i">
-							Windows XP
-							<span class="code">
-								[<a href="https://support.microsoft.com/en-gb/kb/306560">Microsoft</a>]
-							</span>
-						</div>
-						<div class="right-item-content" id="4-1-ic">
-						<p><i>To configure your keyboard to use a different language or keyboard layout, use the appropriate method for your version of Windows.</i></p>
-<p><b>Click</b> Start, type intl.cpl in the Run box, and then press ENTER.</p>
-<p><b>On</b> the Languages tab, click Details.</p>
-<p><b>Under</b> Installed services, click Add.</p>
-<p><b>In</b> the Input language list, click the language that you want. For example, English (United States).</p>
-<p><b>In</b> the Keyboard layout/IME list, click United States-International, and then click OK.</p>
-<p><b>In</b> the Select one of the installed input languages to use when you start your computer list, click English (United States) - United States-International, and then click OK.</p>
-<p><b>In</b> the Regional and Language Options dialog box, click OK.
-<br /><i>
-Notice that the Language bar appears on the taskbar. When you position the mouse pointer over it, a ToolTip appears that describes the active keyboard layout. For example, United States-International appears.
-Click the Language bar, and then click United States-International on the shortcut menu that appears.</i></p>
-
-<p>The United States-International keyboard layout is selected.</p>
-						</div>				
-					</div>
-					
-										<div class="right-item">
-						<div class="right-item-title" id="5-1-i">
-							For Apple users
-						</div>
-						<div class="right-item-content" id="5-1-ic">
-							<p><b>Try this:</b></p>
-							<p><i>Apple > system prefs > Language & text > input sources.</i></p>
-							<p>Check only English</p>
-							<p><b>Or</b>, if your system is set up to allow multiple languages, there might be a Flag of the language in the system notification tray, click on it then select English...</p>
-							<p><b>Finally</b>, pressing Command+Space will move to the next language, Command+Option+Space will move back.</p>
-							<p><img class="content-img" alt="apple keyboard layout in France" src="images/apple.png" /></p>
-						</div>
-					</div>
-										
-					<div class="right-item">
-						<div class="right-item-title" id="6-1-i">
-							Verify the problem is solved
-						</div>
-						<div class="right-item-content" id="6-1-ic">
-							<p>Type here to see if the problem is solved</p>
-							<p><textarea></textarea></p>
-						</div>
-					</div>
+        function click(e) {
+            if (tri[0] == currPoi) {
+                tri.push(currPoi);
+                t = 1;
+                if (chkWayPoi.checked)
+                    calcwayPoi1_alt();
+                else
+                    calcwayPoi1();
+                calcwayPoi2();
+                fillCount = tri.length;
+                triCopy = tri.slice();
+                startFill = false;
+                animate();
+                triContext.clearRect(0, 0, WI_, HI_);
+                eacContext.clearRect(0, 0, WI_, HI_);
+                tri = [];
+                eachClicked = false;
+                return;
+            }
+            if (tri[tri.length - 1] == currPoi) {
+                tri.splice(tri.length - 1, 1);
+                //imgContext.clearRect(currPoi[0], currPoi[1], STR_, STR_);
+                triContext.clearRect(currPoi[0], currPoi[1], STR_, STR_);
+                return;
+            }
+            clicked = true;
+            eachClicked = true;
+            tri.push(currPoi);
+            poi.push(currPoi);
+            //imgContext.fillRect(currPoi[0], currPoi[1], STR_, STR_);
+            triContext.fillRect(currPoi[0], currPoi[1], STR_, STR_);
+        }
 
 
+        function calcwayPoi1() {
+            allTri = tri.slice();
+            while (distancesEnough()) {
+                var med = findMed(allTri[allTri.length - tri.length + 1], allTri[allTri.length - tri.length + 2]);
+                allTri.push(med);
+            }
+        }
 
-				
-				</div>
-				
-				<div class="clear">
-				</div>
-			</div>
-			
-			
-			<div class="meuh">
-			〇
-			</div>
-			
+        function calcwayPoi1_alt() {
+            allTri = tri.slice();
+            while (distancesEnough()) {
+                for (var i = 0; i < tri.length - 1; i++) {
+                    var med = findMed(allTri[allTri.length - tri.length], allTri[allTri.length - tri.length + 1]);
+                    allTri.push(med);
+                }
+                var med = allTri[allTri.length - tri.length + 1];//findMed(allTri[allTri.length - tri.length + 1], allTri[allTri.length - 2 * tri.length]);
+                allTri.push(med);
 
-			
+            }
+        }
 
-		</div>
-	</body>
+        function calcwayPoi2() {
+            waypoi = [];
+            for (var i = 1; i < allTri.length; i++) {
+                var pt0 = allTri[i - 1];
+                var pt1 = allTri[i];
+                var dx = pt1[0] - pt0[0];
+                var dy = pt1[1] - pt0[1];
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    if (dx > 0) {
+                        for (var j = 0; j < dx; j = j + GAP_) {
+                            var x = pt0[0] + j;
+                            var y = pt0[1] + j / dx * dy;
+                            waypoi.push([x, y]);
+                        }
+                    }
+                    else {
+                        for (var j = 0; j > dx; j = j - GAP_) {
+                            var x = pt0[0] + j;
+                            var y = pt0[1] + j / dx * dy;
+                            waypoi.push([x, y]);
+                        }
+                    }
+                }
+                else {
+                    if (dy > 0) {
+                        for (var j = 0; j < dy; j = j + GAP_) {
+                            var y = pt0[1] + j;
+                            var x = pt0[0] + j / dy * dx;
+                            waypoi.push([x, y]);
+                        }
+                    }
+                    else {
+                        for (var j = 0; j > dy; j = j - GAP_) {
+                            var y = pt0[1] + j;
+                            var x = pt0[0] + j / dy * dx;
+                            waypoi.push([x, y]);
+                        }
+                    }
+                }
+            }
+        }
+        
 
+        function animate() {
+            if (t < waypoi.length - 1) {
+                requestAnimationFrame(animate);
+            }
+            if (!chkFill.checked) {
+                imgContext.lineWidth = 1;
+                imgContext.strokeStyle = "rgba(55, 33, 55, 1)";
+                imgContext.beginPath();
+                imgContext.moveTo(waypoi[t - 1][0], waypoi[t - 1][1]);
+                imgContext.lineTo(waypoi[t][0], waypoi[t][1]);
+                imgContext.stroke();
+            }
+            else {
+                var fillColor = GetFillColor(fillCount);
+                var thecolor = "rgba("
+                    + Math.round(fillColor[0]) + ", "
+                    + Math.round(fillColor[1]) + ", "
+                    + Math.round(fillColor[2]) + ", 1)";
+
+                imgContext.lineWidth = 0.5;
+                imgContext.strokeStyle = thecolor;
+                imgContext.beginPath();
+                imgContext.moveTo(waypoi[t - 1][0], waypoi[t - 1][1]);
+                imgContext.lineTo(waypoi[t][0], waypoi[t][1]);
+                imgContext.stroke();
+
+
+                if (waypoi[t][0] == allTri[fillCount][0] && waypoi[t][1] == allTri[fillCount][1]) {
+                    startFill = true;
+                }
+
+                if (startFill) {
+                    //var fillColor = Math.abs(2 * fillCount % 300 - 150);
+                    //var fillColor = Math.round(250 - Math.sqrt(fillCount / allTri.length) * 250);
+                    imgContext.strokeStyle = thecolor;
+                    //imgContext.moveTo(allTri[fillCount][0], allTri[fillCount][1]);
+                    imgContext.moveTo(waypoi[t][0], waypoi[t][1]);
+                    imgContext.lineTo(allTri[fillCount - 1][0], allTri[fillCount - 1][1]);
+                    imgContext.lineTo(allTri[fillCount - triCopy.length + 1][0], allTri[fillCount - triCopy.length + 1][1]);
+                    imgContext.closePath();
+                    imgContext.fillStyle = thecolor;
+                    imgContext.fill();
+
+                }
+            }
+            if (waypoi[t][0] == allTri[fillCount][0] && waypoi[t][1] == allTri[fillCount][1]) {
+                fillCount++;
+            }
+
+            bgaContext.beginPath();
+            bgaContext.moveTo(bgraX(waypoi[t - 1][0]), bgraY(waypoi[t - 1][1]));
+            bgaContext.lineTo(bgraX(waypoi[t][0]), bgraY(waypoi[t][1]));
+            bgaContext.stroke();
+
+            t++;
+        }
+
+        function update1(picker) {
+            rgb1 = picker.rgb;
+        }
+
+        function update2(picker) {
+            rgb2 = picker.rgb;
+        }
+
+        function GetFillColor(fillCount) {
+            var sum1 = Math.abs(rgb1[0] - rgb2[0]);
+            var sum2 = Math.abs(rgb1[1] - rgb2[1]);
+            var sum3 = Math.abs(rgb1[2] - rgb2[2]);
+            var colorstepSum = sum1 + sum2 + sum3;
+            var colorSum = Math.pow(fillCount / allTri.length, 1 / 2) * colorstepSum;
+            if (colorSum < sum1)
+                return rgb2[0] > rgb1[0] ?
+                    [rgb1[0] + colorSum, rgb1[1], rgb1[2]]
+                    : [rgb1[0] - colorSum, rgb1[1], rgb1[2]];
+            else if (colorSum < sum1 + sum2)
+                return rgb2[1] > rgb1[1] ?
+                    [rgb2[0], rgb1[1] + (colorSum - sum1), rgb1[2]]
+                    : [rgb2[0], rgb1[1] - (colorSum - sum1), rgb1[2]];
+            else
+                return rgb2[2] > rgb1[2] ?
+                    [rgb2[0], rgb2[1], rgb1[2] + (colorSum - sum1 - sum2)]
+                    : [rgb2[0], rgb2[1], rgb1[2] - (colorSum - sum1 - sum2)];
+        }
+
+
+        function bgraX(waypoiX) {
+            return WI_ - (waypoiX - MAR_) / (WI_ - 2 * MAR_) * WI_;
+
+        }
+        function bgraY(waypoiY) {
+            return HI_ - (waypoiY - MAR_) / (HI_ - 2 * MAR_) * HI_;
+        }
+
+        function distancesEnough() {
+            for (var i = allTri.length - tri.length; i < allTri.length - 1; i++) {
+                if (distance(allTri[i], allTri[i + 1]) < MIN_DIS_)
+                    return false;
+            }
+            return true;
+        }
+
+        function distance(pA, pB)
+        {
+            var x = (pA[0] - pB[0]) * (pA[0] - pB[0]);
+            var y = (pA[1] - pB[1]) * (pA[1] - pB[1]);
+            return  Math.sqrt(x + y);
+        }
+
+        function findMed(pA, pB) {
+            var x = (pB[0] - pA[0]) * RATE_ + pA[0];
+            var y = (pB[1] - pA[1]) * RATE_ + pA[1];
+            return [x, y];
+        }
+
+        function getCoor(e) {
+            var screenCoor = getScreenCoor(e);
+            return getRealCoor(screenCoor);
+        }
+
+        function getScreenCoor(e) {
+            var x;
+            var y;
+            if (e.pageX || e.pageY) {
+                x = e.pageX;
+                y = e.pageY;
+            }
+            else {
+                x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+                y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+            }
+            x -= curHolder.offsetLeft;
+            y -= curHolder.offsetTop;
+            return [x, y];
+        }
+
+        function getRealCoor(screenCoor) {
+            var x = screenCoor[0];
+            var y = screenCoor[1];
+
+            if (x < MAR_ + STR_) x = MAR_;
+            if (y < MAR_ + STR_) y = MAR_;
+            if (x > WI_ - MAR_ - STR_) x = WI_ - MAR_;
+            if (y > HI_ - MAR_ - STR_) y = HI_ - MAR_;
+            for (var i = 0; i < poi.length; i++) {
+                if (rectDistance(x, y, poi[i]) < STR_) {
+                    return poi[i];
+                }
+            }
+
+
+            return [x, y];
+        }
+
+        function rectDistance(x, y, thePoint) {
+            return Math.max(Math.abs(thePoint[0] - x), Math.abs(thePoint[1] - y));
+        }
+
+        function setit() {
+            clicked = false;
+            eachClicked = false;
+            tri = [];
+            poi = [];
+            waypoi = [];
+            allTri = [];
+            currPoi = [];
+
+            WI_ = window.innerWidth - 20;
+            HI_ = window.innerHeight - 100;
+            
+            bgaHolder.width = WI_;
+            bgaHolder.height = HI_;
+            bgrHolder.width = WI_;
+            bgrHolder.height = HI_;
+            imgHolder.width = WI_;
+            imgHolder.height = HI_;
+            triHolder.width = WI_;
+            triHolder.height = HI_;
+            eacHolder.width = WI_;
+            eacHolder.height = HI_;
+            curHolder.width = WI_;
+            curHolder.height = HI_;
+
+            bgaContext = bgaHolder.getContext('2d');
+            bgrContext = bgrHolder.getContext('2d');
+            imgContext = imgHolder.getContext('2d');
+            triContext = triHolder.getContext('2d');
+            eacContext = eacHolder.getContext('2d');
+            curContext = curHolder.getContext('2d');
+            
+            var gra = imgContext.createLinearGradient(0, 0, WI_, HI_);
+            gra.addColorStop(0, "rgba(222, 0, 22, 1)");
+            gra.addColorStop(1, "rgba(22, 0, 222, 1)");
+            triContext.fillStyle = gra;
+            eacContext.strokeStyle = "rgba(22, 222, 222, 1)";
+            eacContext.lineWidth = 4;
+            curContext.fillStyle = "rgba(22, 222, 222, 1)";
+            //grid
+            bgrContext.globalAlpha = 0.8;
+            bgrContext.fillStyle = "rgba(211, 211, 222, 1)";
+            bgrContext.fillRect(MAR_, MAR_, WI_ - 2 * MAR_, HI_ - 2 * MAR_);
+            var stepW = (WI_ - 4 * MAR_) / STEP_WH;
+            var stepH = (HI_ - 4 * MAR_) / STEP_WH;
+            bgrContext.beginPath();
+            bgrContext.strokeStyle = "rgba(244, 244, 244, 1)";
+            for (var i = 0; i <= STEP_WH; i++) {
+                bgrContext.moveTo(2 * MAR_ + i * stepW, MAR_);//Ver
+                bgrContext.lineTo(2 * MAR_ + i * stepW, HI_ - MAR_);
+                bgrContext.moveTo(MAR_, 2 * MAR_ + i * stepH);//Hor
+                bgrContext.lineTo(WI_ - MAR_, 2 * MAR_ + i * stepH);
+            }
+            bgrContext.stroke();
+
+            bgaContext.lineWidth = 12;
+            bgaContext.strokeStyle = "rgba(22, 22, 22, 1)";
+
+            imgContext.lineWidth = 3;
+            imgContext.lineCap = "round";
+            imgContext.strokeStyle = "rgba(88, 55, 88, 1)";
+        }
+        
+        function onlick()
+        {
+            clicked = true;
+        }
+    </script>
+    <canvas id="bgaHolder"></canvas>
+    <canvas id="bgrHolder"></canvas>
+    <canvas id="triHolder"></canvas>
+    <canvas id="eacHolder"></canvas>
+    <canvas id="curHolder"></canvas>
+
+    <canvas id="imgHolder"></canvas>
+
+    <button id="btnClear">Clear</button>
+
+
+    <div id="hovWayPoi">
+        <input type="checkbox" id="chkWayPoi" />
+        <label id="lblWayPoi" for="chkWayPoi">Modified drawing method</label>
+        <div id="divWayPoi">
+        
+        </div>
+    </div>
+
+    <input type="checkbox" id="chkFill" />
+    <label id="lblFill" for="chkFill">Fill</label>
+
+    <input name="color1" type="hidden" id="color_value1" value="b2ff00" />>
+    <button class="jscolor {valueElement: 'color_value1', onFineChange:'update1(this)'}" id="btncolor1">color1</button>  
+    <input name="color2" type="hidden" id="color_value2" value="ff00ff" />>
+    <button class="jscolor {valueElement: 'color_value2', onFineChange:'update2(this)'}" id="btncolor2">color2</button>    
+
+    <div id="hovAbout">
+        <label id="lblAbout">About</label>
+        <div id="divAbout">
+            <h2>A little doodling toy</h2>
+            <p class="about1">That based on <a href="http://youtu.be/vTvw_LGBtlM" target="_blank">this Youtube video</a>. </p>
+            <p class="about1">Click on canvas to define the vertices of the pattern outline.</p>
+            <p class="about1">Once a closing loop of polygon is formed, the browser will start drawing procedure.</p>
+            <p class="about1">Check the <b>Fill</b> checkbox to color the pattern.</p>
+            <p class="about2">This is the first gadget that I created in keyboqrd.com, other funny stuffs will be slowly added.</p>
+            <p class="about2"><b>Contact: keyboqrd@gmail.com</b></p>
+        </div>
+    </div>
+    <style>
+        #bgaHolder, #bgrHolder,#imgHolder, #triHolder, #eacHolder, #curHolder {
+            position: absolute;
+            top: 20px;
+        }
+
+        body {
+            background-color: rgb(22, 0, 22);
+        }
+
+
+        #btnClear, #btncolor1, #btncolor2{
+            position: absolute;
+            top: 5px; 
+        	display:inline-block;
+            font-family: Arial;
+            font-size: 14px;
+        	cursor:pointer;
+        	font-weight:bold;
+        	padding:4px 5px;
+        }
+
+        #btnClear {
+            left: 30px;
+        	background:linear-gradient(to bottom, #5f59b3 5%, #404099 100%);
+        	color:#ffffff;
+        }
+
+        #btncolor1 {
+            left: 150px;
+        	display:inline-block;
+        }
+
+        #btncolor2 {
+            left: 210px;
+        	display:inline-block;
+        }
+
+
+        #btnClear:hover {
+        	background:linear-gradient(to bottom, #404099 5%, #5f59b3 100%);
+        }
+
+        #chkWayPoi {
+            position:absolute;
+            left: 120px;
+            top: 10px; 
+        }
+        
+        #lblWayPoi {
+            position:absolute;
+            left: 140px;
+            top: 10px; 
+            font-family: Arial;
+            font-size: 14px;
+        	cursor:pointer;
+        	color:#ffffff;
+        	font-weight:bold;
+        }
+
+        #chkFill {
+            position:absolute;
+            left: 100px;
+            top: 10px; 
+        }
+        
+        #lblFill {
+            position:absolute;
+            left: 120px;
+            top: 10px; 
+            font-family: Arial;
+            font-size: 14px;
+        	cursor:pointer;
+        	color:#ffffff;
+        	font-weight:bold;
+        }
+
+
+        #hovWayPoi {
+            display:none;
+        }
+
+        #hovWayPoi:hover #divWayPoi {
+            display:block;
+        }
+
+        #divWayPoi {
+            position:absolute;
+            left: 126px;
+            top: 26px;
+            width: 240px;
+            height: 240px;
+            background-color: #ffffff;
+            display: none;
+        }
+
+        #lblAbout {
+            position:absolute;
+            right: 30px;
+            top: 10px; 
+            font-family: Arial;
+            font-size: 14px;
+        	cursor:pointer;
+        	color:#ffffff;
+        	font-weight:bold;
+        }
+
+        #hovAbout {
+            //display:none;
+        }
+
+        #hovAbout:hover #divAbout {
+            display:block;
+        }
+
+
+
+        #divAbout {
+            position:absolute;
+            right: 30px;
+            top: 26px;
+            width: 260px;
+            height: 230px;
+            background-color: #bb99bb;
+            display: none;
+            padding: 0px 10px 5px 10px;
+        }
+
+        #divAbout h2 {
+            font-family: Arial;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+
+        #divAbout p {
+            font-family: Arial;
+        }
+        #divAbout .about1{
+            font-family: Arial;
+            font-size: 12px;
+        }
+        #divAbout .about2{
+            font-family: Arial;
+            font-size: 10px;
+        }
+    </style>
+</body>
 </html>
