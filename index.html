@@ -15,7 +15,7 @@
     <script>
         var clicked = false;
         var eachClicked = false;
-        var bgaContext; //background animation
+
         var bgrContext; //background scene
         var imgContext; 
         var triContext; //current polygon points
@@ -221,11 +221,6 @@
                 fillCount++;
             }
 
-            bgaContext.beginPath();
-            bgaContext.moveTo(bgraX(waypoi[t - 1][0]), bgraY(waypoi[t - 1][1]));
-            bgaContext.lineTo(bgraX(waypoi[t][0]), bgraY(waypoi[t][1]));
-            bgaContext.stroke();
-
             t++;
         }
 
@@ -342,8 +337,7 @@
             WI_ = window.innerWidth;
             HI_ = window.innerHeight - 130;
             
-            bgaHolder.width = WI_;
-            bgaHolder.height = HI_;
+
             bgrHolder.width = WI_;
             bgrHolder.height = HI_;
             imgHolder.width = WI_;
@@ -355,7 +349,7 @@
             curHolder.width = WI_;
             curHolder.height = HI_;
 
-            bgaContext = bgaHolder.getContext('2d');
+
             bgrContext = bgrHolder.getContext('2d');
             imgContext = imgHolder.getContext('2d');
             triContext = triHolder.getContext('2d');
@@ -376,6 +370,7 @@
             var stepW = (WI_ - 4 * MAR_) / STEP_WH;
             var stepH = (HI_ - 4 * MAR_) / STEP_WH;
             bgrContext.beginPath();
+			bgrContext.lineWidth = 0.5;
             bgrContext.strokeStyle = "rgba(244, 244, 244, 1)";
             for (var i = 0; i <= STEP_WH; i++) {
                 bgrContext.moveTo(2 * MAR_ + i * stepW, MAR_);//Ver
@@ -384,9 +379,6 @@
                 bgrContext.lineTo(WI_ - MAR_, 2 * MAR_ + i * stepH);
             }
             bgrContext.stroke();
-
-            bgaContext.lineWidth = 12;
-            bgaContext.strokeStyle = "rgba(22, 22, 22, 1)";
 
             imgContext.lineWidth = 3;
             imgContext.lineCap = "round";
@@ -398,7 +390,7 @@
             clicked = true;
         }
     </script>
-    <canvas id="bgaHolder"></canvas>
+
     <canvas id="bgrHolder"></canvas>
     <canvas id="triHolder"></canvas>
     <canvas id="eacHolder"></canvas>
@@ -459,10 +451,11 @@
 			height: 100px;
             bottom: 5px;
         }
-        #bgaHolder, #bgrHolder,#imgHolder, #triHolder, #eacHolder, #curHolder {
+		#bgrHolder,#imgHolder, #triHolder, #eacHolder, #curHolder {
             position: absolute;
             top: 20px;
         }
+
 
         body {
             background-color: rgb(22, 0, 22);
