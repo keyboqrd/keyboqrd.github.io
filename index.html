@@ -54,7 +54,10 @@
             imgHolder.addEventListener("mousemove", mousemove);
             imgHolder.addEventListener("click", click);
             btnClear.addEventListener("click", setit);
-
+		
+	    var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", "visitlogger.azurewebsites.net/api/viii/aaa", true); // true for asynchronous 
+            xmlHttp.send(null);
         });
 
         function mousemove(e) {
